@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <title>Добавить предмет</title>
+</head>
+<body>
+<h1>Добавить предмет</h1>
+<form action="#" th:action="@{/subjects/add}" th:object="${subject}" method="post">
+  <label for="name">Название:</label>
+  <input type="text" id="name" th:field="*{name}" required/>
+  <br/>
+  <label for="description">Описание:</label>
+  <textarea id="description" th:field="*{description}" required></textarea>
+  <br/>
+  <button type="submit">Сохранить</button>
+</form>
+
+<h2>Или загрузите предметы из Excel</h2>
+<form action="#" th:action="@{/subjects/upload}" method="post" enctype="multipart/form-data">
+  <input type="file" name="file" accept=".xlsx" required />
+  <button type="submit">Загрузить</button>
+</form>
+
+<a href="/subjects">Назад</a>
+</body>
+</html>
