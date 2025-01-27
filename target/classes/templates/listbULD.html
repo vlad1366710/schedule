@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <title>Корпуса</title>
+</head>
+<body>
+<h1>Корпуса</h1>
+<table>
+  <tr>
+    <th>ID</th>
+    <th>Название</th>
+    <th>Действия</th>
+  </tr>
+  <tr th:each="building : ${buildings}">
+    <td th:text="${building.id}"></td>
+    <td th:text="${building.name}"></td>
+    <td>
+      <a th:href="@{/buildings/edit/{id}(id=${building.id})}">Редактировать</a>
+      <a th:href="@{/buildings/delete/{id}(id=${building.id})}">Удалить</a>
+      <a th:href="@{/buildings/{id}/rooms/add(id=${building.id})}">Добавить аудиторию</a>
+    </td>
+  </tr>
+</table>
+<a href="/buildings/add">Добавить новый корпус</a>
+</body>
+</html>

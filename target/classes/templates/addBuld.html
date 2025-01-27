@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <title>Добавить корпус</title>
+</head>
+<body>
+<h1>Добавить корпус</h1>
+<form action="#" th:action="@{/buildings/add}" th:object="${building}" method="post">
+  <label for="name">Название:</label>
+  <input type="text" id="name" th:field="*{name}" required/>
+  <br/>
+  <button type="submit">Сохранить</button>
+</form>
+<a href="/buildings">Назад</a>
+</body>
+</html>

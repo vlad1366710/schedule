@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <title>Главная страница</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      text-align: center;
+      margin: 50px;
+    }
+    h1 {
+      color: #333;
+    }
+    .nav-link {
+      display: inline-block;
+      margin: 20px;
+      padding: 15px;
+      background-color: #007BFF;
+      color: white;
+      text-decoration: none;
+      border-radius: 5px;
+    }
+    .nav-link:hover {
+      background-color: #0056b3;
+    }
+  </style>
+</head>
+<body>
+<h1>Добро пожаловать в систему управления учебными заведениями</h1>
+<p>Выберите один из разделов ниже:</p>
+<a class="nav-link" href="/subjects">Управление предметами</a>
+<a class="nav-link" href="/buildings">Управление корпусами</a>
+<a class="nav-link" href="/rooms">Управление аудиториями</a>
+<a class="nav-link" href="/schedule/create">Составить расписание</a>
+<a class="nav-link" href="/schedule/view">Просмотреть готовое расписание</a>
+</body>
+</html>
