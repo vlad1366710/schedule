@@ -9,13 +9,16 @@ public class Room {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
     private String number; // Номер аудитории
+
+    private int capacity; // Вместимость аудитории
 
     @ManyToOne
     @JoinColumn(name = "building_id")
     private Building building; // Привязка к корпусу
 
-
+    // Геттер и сеттер для id
     public void setId(Long id) {
         this.id = id;
     }
@@ -24,6 +27,7 @@ public class Room {
         return id;
     }
 
+    // Геттер и сеттер для number
     public String getNumber() {
         return number;
     }
@@ -32,6 +36,16 @@ public class Room {
         this.number = number;
     }
 
+    // Геттер и сеттер для capacity
+    public int getCapacity() {
+        return capacity;
+    }
+
+    public void setCapacity(int capacity) {
+        this.capacity = capacity;
+    }
+
+    // Геттер и сеттер для building
     public Building getBuilding() {
         return building;
     }

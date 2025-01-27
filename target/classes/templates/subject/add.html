@@ -14,6 +14,13 @@
   <br/>
   <button type="submit">Сохранить</button>
 </form>
+
+<h2>Или загрузите предметы из Excel</h2>
+<form action="#" th:action="@{/subjects/upload}" method="post" enctype="multipart/form-data">
+  <input type="file" name="file" accept=".xlsx" required />
+  <button type="submit">Загрузить</button>
+</form>
+
 <a href="/subjects">Назад</a>
 </body>
 </html>

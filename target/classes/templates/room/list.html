@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>Список Аудиторий</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.1.3/css/bootstrap.min.css">
+</head>
+<body>
+<div class="container">
+  <h1 class="mt-5">Список Аудиторий</h1>
+  <table class="table table-bordered mt-3">
+    <thead>
+    <tr>
+      <th>ID</th>
+      <th>Номер Аудитории</th>
+      <th>Вместимость</th>
+      <th>Корпус</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="room : ${rooms}">
+      <td th:text="${room.id}"></td>
+      <td th:text="${room.number}"></td>
+      <td th:text="${room.capacity}"></td>
+      <td th:text="${room.building.name}"></td> <!-- Предполагается, что у Building есть поле name -->
+    </tr>
+    </tbody>
+  </table>
+  <a class="btn btn-primary" th:href="@{/rooms/create}">Добавить Аудиторию</a> <!-- Ссылка для добавления новой аудитории -->
+</div>
+</body>
+</html>
