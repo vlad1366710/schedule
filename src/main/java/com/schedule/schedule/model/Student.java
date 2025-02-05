@@ -19,7 +19,7 @@ public class Student {
 
     @ManyToOne
     @JoinColumn(name = "group_id")
-    private Group group;
+    private StudentGroup group;
 
     public void setId(Long id) {
         this.id = id;

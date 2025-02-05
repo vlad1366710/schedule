@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Бронирование аудитории</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+<body>
+<div class="container">
+    <h1>Форма бронирования</h1>
+    <form th:action="@{/booking}" th:object="${booking}" method="post">
+        <div class="form-group">
+            <label for="room">Аудитория</label>
+            <select class="form-control" id="room" th:field="*{room}">
+                <option th:each="room : ${rooms}" th:value="${room.id}" th:text="${room.number}"></option>
+            </select>
+            <span th:if="${#fields.hasErrors('room')}" th:errors="*{room}" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <label for="teacher">Преподаватель</label>
+            <select class="form-control" id="teacher" th:field="*{teacher}">
+                <option th:each="teacher : ${teachers}" th:value="${teacher.id}" th:text="${teacher.name}"></option>
+            </select>
+            <span th:if="${#fields.hasErrors('teacher')}" th:errors="*{teacher}" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <label for="group">Группа</label>
+            <select class="form-control" id="group" th:field="*{group}">
+                <option th:each="group : ${groups}" th:value="${group.id}" th:text="${group.name}"></option>
+            </select>
+            <span th:if="${#fields.hasErrors('group')}" th:errors="*{group}" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <label for="startTime">Время начала</label>
+            <input type="datetime-local" class="form-control" id="startTime" th:field="*{startTime}">
+            <span th:if="${#fields.hasErrors('startTime')}" th:errors="*{startTime}" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <label for="endTime">Время окончания</label>
+            <input type="datetime-local" class="form-control" id="endTime" th:field="*{endTime}">
+            <span th:if="${#fields.hasErrors('endTime')}" th:errors="*{endTime}" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <label for="classTime">Время занятия</label>
+            <select class="form-control" id="classTime" th:field="*{classTime}">
+                <option th:each="classTime : ${classTimes}" th:value="${classTime.id}"></option>
+            </select>
+            <span th:if="${#fields.hasErrors('classTime')}" th:errors="*{classTime}" class="text-danger"></span>
+        </div>
+        <button type="submit" class="btn btn-primary">Сохранить</button>
+        <a th:href="@{/bookings}" class="btn btn-secondary">Отмена</a>
+    </form>
+    <div th:if="${errorMessage != null}" class="alert alert-danger mt-3" th:text="${errorMessage}"></div>
+</div>
+</body>
+</html>

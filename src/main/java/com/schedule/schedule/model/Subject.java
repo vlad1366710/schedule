@@ -1,25 +1,35 @@
 package com.schedule.schedule.model;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import org.springframework.data.annotation.Id;
+import jakarta.persistence.*;
+import java.util.Set;
 
 @Entity
 public class Subject {
+
     @jakarta.persistence.Id
-    @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
     private String name;
     private String description; // Описание предмета
+    private String type; // Тип предмета
 
-    public void setId(Long id) {
-        this.id = id;
-    }
+    @ManyToMany
+    @JoinTable(
+            name = "subject_speciality",
+            joinColumns = @JoinColumn(name = "subject_id"),
+            inverseJoinColumns = @JoinColumn(name = "speciality_id")
+    )
+    private Set<Speciality> specialities;
+
+    // Геттеры и сеттеры
 
     public Long getId() {
         return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public String getName() {
@@ -36,5 +46,21 @@ public class Subject {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
+    }
+
+    public Set<Speciality> getSpecialities() {
+        return specialities;
+    }
+
+    public void setSpecialities(Set<Speciality> specialities) {
+        this.specialities = specialities;
     }
 }

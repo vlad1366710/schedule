@@ -5,23 +5,70 @@
 </head>
 <body>
 <h1>Предметы</h1>
+
+<!-- Форма фильтрации -->
+<form action="/subjects/search" method="get">
+    <div>
+        <label for="name">Название:</label>
+        <input type="text" id="name" name="name" placeholder="Поиск по названию" th:value="${searchName}"/>
+    </div>
+    <div>
+        <label for="description">Описание:</label>
+        <input type="text" id="description" name="description" placeholder="Поиск по описанию" th:value="${searchDescription}"/>
+    </div>
+    <div>
+        <label for="type">Тип:</label>
+        <select id="type" name="type">
+            <option value="" th:selected="${searchType == null}">Все типы</option>
+            <option value="type1" th:selected="${searchType == 'type1'}">Тип 1</option>
+            <option value="type2" th:selected="${searchType == 'type2'}">Тип 2</option>
+            <option value="type3" th:selected="${searchType == 'type3'}">Тип 3</option>
+        </select>
+    </div>
+    <div>
+        <label for="sort">Сортировка по:</label>
+        <select id="sort" name="sort">
+            <option value="id" th:selected="${sort == 'id'}">ID</option>
+            <option value="name" th:selected="${sort == 'name'}">Название</option>
+            <option value="description" th:selected="${sort == 'description'}">Описание</option>
+        </select>
+    </div>
+    <div>
+        <input type="submit" value="Применить фильтры"/>
+    </div>
+</form>
+
 <table>
     <tr>
         <th>ID</th>
         <th>Название</th>
         <th>Описание</th>
+        <th>Тип</th>
         <th>Действия</th>
     </tr>
     <tr th:each="subject : ${subjects}">
         <td th:text="${subject.id}"></td>
         <td th:text="${subject.name}"></td>
         <td th:text="${subject.description}"></td>
+        <td th:text="${subject.type}"></td>
         <td>
             <a th:href="@{/subjects/edit/{id}(id=${subject.id})}">Редактировать</a>
             <a th:href="@{/subjects/delete/{id}(id=${subject.id})}">Удалить</a>
         </td>
     </tr>
 </table>
+
+<!-- Пагинация -->
+<div>
+    <span th:if="${currentPage > 0}">
+        <a th:href="@{/subjects/search(name=${searchName}, description=${searchDescription}, type=${searchType}, page=${currentPage - 1}, size=${size}, sort=${sort})}">Предыдущая</a>
+    </span>
+    <span>Страница <span th:text="${currentPage + 1}"></span> из <span th:text="${totalPages}"></span></span>
+    <span th:if="${currentPage < totalPages - 1}">
+        <a th:href="@{/subjects/search(name=${searchName}, description=${searchDescription}, type=${searchType}, page=${currentPage + 1}, size=${size}, sort=${sort})}">Следующая</a>
+    </span>
+</div>
+
 <a href="/subjects/add">Добавить новый предмет</a>
 </body>
 </html>

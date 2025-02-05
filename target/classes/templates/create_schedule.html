@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Создание расписания</title>
+</head>
+<body>
+<h1>Создание нового расписания</h1>
+<form action="#" th:action="@{/schedules}" th:object="${schedule}" method="post">
+    <label>Группа:</label>
+    <input type="text" th:field="*{group.name}" required/>
+
+    <label>Курс:</label>
+    <input type="text" th:field="*{course.name}" required/>
+
+    <label>Преподаватель:</label>
+    <input type="text" th:field="*{teacher.name}" required/>
+
+    <label>День недели:</label>
+    <input type="text" th:field="*{dayOfWeek}" required/>
+
+    <label>Время начала:</label>
+    <input type="text" th:field="*{startTime}" required/>
+
+    <label>Время окончания:</label>
+    <input type="text" th:field="*{endTime}" required/>
+
+    <label>Место:</label>
+    <input type="text" th:field="*{location}" required/>
+
+    <button type="submit">Создать расписание</button>
+</form>
+<a href="/schedules">Назад</a>
+</body>
+</html>

@@ -1,7 +1,7 @@
 package com.schedule.schedule.model;
 
 import jakarta.persistence.*;
-import org.apache.catalina.User;
+import jakarta.validation.constraints.NotNull;
 
 import java.time.LocalDateTime;
 
@@ -12,13 +12,37 @@ public class Booking {
     private Long id;
 
     @ManyToOne
-    private Room room; // Комната, которая бронируется
-
-    private LocalDateTime startTime; // Время начала бронирования
-    private LocalDateTime endTime;   // Время окончания бронирования
+    @JoinColumn(name = "room_id", nullable = false)
+    @NotNull(message = "Аудитория не может быть пустой")
+    private Room room;
 
     @ManyToOne
-    private Users user; // Пользователь, который сделал бронирование
+    @JoinColumn(name = "teacher_id", nullable = false)
+    @NotNull(message = "Преподаватель не может быть пустым")
+    private Teacher teacher;
+
+    @ManyToOne
+    @JoinColumn(name = "group_id", nullable = false)
+    @NotNull(message = "Группа не может быть пустой")
+    private StudentGroup group;
+
+    @ManyToOne
+    @JoinColumn(name = "class_time_id", nullable = false)
+    @NotNull(message = "Время занятия не может быть пустым")
+    private ClassTime classTime;
+
+    @ManyToOne
+    @JoinColumn(name = "user_id", nullable = false) // Добавлено поле user
+    @NotNull(message = "Пользователь не может быть пустым")
+    private Users user;
+
+    public Users getUser() {
+        return user;
+    }
+
+    public void setUser(Users user) {
+        this.user = user;
+    }
 
     // Геттеры и сеттеры
     public Long getId() {
@@ -37,27 +61,36 @@ public class Booking {
         this.room = room;
     }
 
-    public LocalDateTime getStartTime() {
-        return startTime;
+    public Teacher getTeacher() {
+        return teacher;
     }
 
-    public void setStartTime(LocalDateTime startTime) {
-        this.startTime = startTime;
+    public void setTeacher(Teacher teacher) {
+        this.teacher = teacher;
+    }
+
+    public StudentGroup getGroup() {
+        return group;
+    }
+
+    public void setGroup(StudentGroup group) {
+        this.group = group;
+    }
+
+    public ClassTime getClassTime() {
+        return classTime;
+    }
+
+    public void setClassTime(ClassTime classTime) {
+        this.classTime = classTime;
+    }
+
+    // Получение времени начала и окончания занятия
+    public LocalDateTime getStartTime() {
+        return classTime != null ? classTime.getStartTime() : null;
     }
 
     public LocalDateTime getEndTime() {
-        return endTime;
-    }
-
-    public void setEndTime(LocalDateTime endTime) {
-        this.endTime = endTime;
-    }
-
-    public Users getUser () {
-        return user;
-    }
-
-    public void setUser (Users user) {
-        this.user = user;
+        return classTime != null ? classTime.getEndTime() : null;
     }
 }
