@@ -3,6 +3,7 @@ package com.schedule.schedule.model;
 
 import jakarta.persistence.*;
 
+import java.sql.Time;
 import java.time.LocalDateTime;
 
 @Entity
@@ -11,8 +12,8 @@ public class ClassTime {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private LocalDateTime startTime; // Время начала пары
-    private LocalDateTime  endTime;   // Время окончания пары
+    private String startTime; // Время начала пары
+    private String  endTime;   // Время окончания пары
 
     // Геттеры и сеттеры
     public Long getId() {
@@ -23,19 +24,19 @@ public class ClassTime {
         this.id = id;
     }
 
-    public LocalDateTime  getStartTime() {
+    public String  getStartTime() {
         return startTime;
     }
 
-    public void setStartTime(LocalDateTime  startTime) {
+    public void setStartTime(String  startTime) {
         this.startTime = startTime;
     }
 
-    public LocalDateTime  getEndTime() {
+    public String  getEndTime() {
         return endTime;
     }
 
-    public void setEndTime(LocalDateTime  endTime) {
+    public void setEndTime(String  endTime) {
         this.endTime = endTime;
     }
 }

@@ -1,6 +1,9 @@
 package com.schedule.schedule.service;
 
+import com.schedule.schedule.RoleConstants;
+import com.schedule.schedule.model.Role;
 import com.schedule.schedule.model.Users;
+import com.schedule.schedule.repository.RoleRepository;
 import com.schedule.schedule.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -13,12 +16,15 @@ public class UserService {
     private UserRepository userRepository;
 
     @Autowired
+    private RoleRepository roleRepository;
+
+    @Autowired
     private PasswordEncoder passwordEncoder; // Используем PasswordEncoder
 
     public void registerUser (Users user) {
         user.setPassword(passwordEncoder.encode(user.getPassword())); // Шифруем пароль
         user.setEnabled(true); // Устанавливаем пользователя как активного
-        user.setRole("STUDENT"); // Устанавливаем роль по умолчанию (можно изменить)
+        user.setRole(roleRepository.findByName(RoleConstants.ROLE_ADMIN));
         userRepository.save(user); // Сохраняем пользователя в базе данных
     }
 

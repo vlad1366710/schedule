@@ -1,12 +1,10 @@
 package com.schedule.schedule.controller;
 
 import com.schedule.schedule.model.Booking;
+import com.schedule.schedule.model.Building;
 import com.schedule.schedule.model.ClassTime;
 import com.schedule.schedule.model.Room;
-import com.schedule.schedule.repository.ClassTimeRepository;
-import com.schedule.schedule.repository.RoomRepository;
-import com.schedule.schedule.repository.StudentGroupRepository;
-import com.schedule.schedule.repository.TeacherRepository;
+import com.schedule.schedule.repository.*;
 import com.schedule.schedule.service.BookingService;
 import com.schedule.schedule.service.ClassTimeService;
 import com.schedule.schedule.service.RoomService;
@@ -36,9 +34,6 @@ public class BookingController {
     private ClassTimeService classTimeService;
 
     @Autowired
-    private TeacherRepository teacherRepository;
-
-    @Autowired
     private StudentGroupRepository studentGroupRepository;
 
     @Autowired
@@ -46,14 +41,17 @@ public class BookingController {
     @Autowired
     private ClassTimeRepository classTimeRepository;
 
+    @Autowired
+    private BuildingRepository buildingRepository;
+
     @GetMapping("/booking")
     public String showBookingForm(Model model) {
         List<Room> rooms = roomService.getAllRooms();
         List<ClassTime> classTimes = classTimeService.getAllClassTimes();
+        model.addAttribute("buildings", buildingRepository.findAll());
         model.addAttribute("rooms", rooms);
         model.addAttribute("classTimes", classTimes);
         model.addAttribute("booking", new Booking());
-        model.addAttribute("teachers", teacherRepository.findAll());
         model.addAttribute("groups", studentGroupRepository.findAll());
         return "booking/form";
     }
@@ -64,19 +62,20 @@ public class BookingController {
             // Если есть ошибки валидации, возвращаем пользователя на форму с сообщениями об ошибках
             List<Room> rooms = roomService.getAllRooms();
             model.addAttribute("rooms", roomRepository.findAll());
-            model.addAttribute("teachers", teacherRepository.findAll());
             model.addAttribute("groups", studentGroupRepository.findAll());
             model.addAttribute("classTimes", classTimeRepository.findAll());
             return "booking/form";
         }
 
         // Проверка доступности аудитории
-        if (!bookingService.isRoomAvailable(booking.getRoom(),booking.getClassTime().getStartTime(), booking.getClassTime().getEndTime())) {
+       /* if (!bookingService.isRoomAvailable(booking.getBuilding(),booking.getClassTime().getStartTime(), booking.getClassTime().getEndTime())) {
             model.addAttribute("errorMessage", "Аудитория уже занята в это время.");
             List<Room> rooms = roomService.getAllRooms();
             model.addAttribute("rooms", rooms);
             return "booking/form";
         }
+
+        */
 
         bookingService.saveBooking(booking);
         return "redirect:/bookings";

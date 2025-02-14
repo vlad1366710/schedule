@@ -17,7 +17,7 @@ public interface BookingRepository extends JpaRepository<Booking, Long> {
     List<Booking> findByRoom(Room room);
 
     // Поиск бронирований по пользователю и временному интервалу
-    List<Booking> findByUserAndClassTimeStartTimeBetween(Users user, LocalDateTime startTime, LocalDateTime endTime);
+    List<Booking> findByUserAndClassTimeStartTimeBetween(Users user, String startTime, String endTime);
 
     // Поиск бронирований по пользователю
     List<Booking> findByUser (Users user);
@@ -35,8 +35,10 @@ public interface BookingRepository extends JpaRepository<Booking, Long> {
     List<Booking> findByClassTimeId(Long classTimeId);
 
     // Поиск бронирований по аудитории и временному интервалу
-    List<Booking> findByRoomAndClassTime_StartTimeBetween(Room room, LocalDateTime startTime, LocalDateTime endTime);
+    List<Booking> findByRoomAndClassTime_StartTimeBetween(Room room, String startTime, String endTime);
 
     // Поиск бронирований по аудитории и времени занятия
     List<Booking> findByRoomAndClassTime(Room room, ClassTime classTime);
+
+
 }

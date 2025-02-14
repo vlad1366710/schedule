@@ -22,9 +22,9 @@ public class StudentGroup {
     @JoinTable(
             name = "student_group_teacher",
             joinColumns = @JoinColumn(name = "student_group_id"),
-            inverseJoinColumns = @JoinColumn(name = "teacher_id")
+            inverseJoinColumns = @JoinColumn(name = "users_id")
     )
-    private Set<Teacher> teachers;
+    private Set<Users> teachers;
 
     // Геттеры и сеттеры
 
@@ -60,11 +60,11 @@ public class StudentGroup {
         this.quantity = quantity;
     }
 
-    public Set<Teacher> getTeachers() {
-        return teachers;
+    public Set<Users> getTeachers() {
+        return teachers; // сломано
     }
 
-    public void setTeachers(Set<Teacher> teachers) {
-        this.teachers = teachers;
+    public void setTeachers(Set<Users> teachers) {
+        this.teachers = teachers;// сломано
     }
 }

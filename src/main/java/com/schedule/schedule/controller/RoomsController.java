@@ -4,23 +4,24 @@ import com.schedule.schedule.model.Room;
 import com.schedule.schedule.service.RoomService; // Предполагается, что у вас есть сервис для работы с Room
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
 
-
-@Controller
+@RestController
+@RequestMapping("/api/rooms") // Определение базового пути для всех эндпоинтов
 public class RoomsController {
 
     @Autowired
     private RoomService roomService; // Сервис для работы с аудиториями
 
-    // Получить список всех аудиторий
-    @GetMapping("/rooms")
-    public String getAllRooms(Model model) {
-        model.addAttribute("rooms", roomService.getAllRooms());
-        return "room/list" ;
+    // Получить список всех аудиторий или по идентификатору здания
+    @GetMapping
+    public List<Room> getAllRooms(@RequestParam(required = false) Long buildingId) {
+        if (buildingId != null) {
+            return roomService.getRoomsByBuildingId(buildingId); // Метод для получения аудиторий по идентификатору здания
+        }
+        return roomService.getAllRooms(); // Если buildingId не указан, возвращаем все аудитории
     }
 
     // Получить аудиторию по ID

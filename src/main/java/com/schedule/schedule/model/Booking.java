@@ -12,14 +12,8 @@ public class Booking {
     private Long id;
 
     @ManyToOne
-    @JoinColumn(name = "room_id", nullable = false)
-    @NotNull(message = "Аудитория не может быть пустой")
-    private Room room;
-
-    @ManyToOne
-    @JoinColumn(name = "teacher_id", nullable = false)
-    @NotNull(message = "Преподаватель не может быть пустым")
-    private Teacher teacher;
+    @JoinColumn(name = "building_id")
+    private Building building; // Связь
 
     @ManyToOne
     @JoinColumn(name = "group_id", nullable = false)
@@ -35,6 +29,9 @@ public class Booking {
     @JoinColumn(name = "user_id", nullable = false) // Добавлено поле user
     @NotNull(message = "Пользователь не может быть пустым")
     private Users user;
+
+
+    private String ma,nameuser;
 
     public Users getUser() {
         return user;
@@ -53,21 +50,7 @@ public class Booking {
         this.id = id;
     }
 
-    public Room getRoom() {
-        return room;
-    }
 
-    public void setRoom(Room room) {
-        this.room = room;
-    }
-
-    public Teacher getTeacher() {
-        return teacher;
-    }
-
-    public void setTeacher(Teacher teacher) {
-        this.teacher = teacher;
-    }
 
     public StudentGroup getGroup() {
         return group;
@@ -86,11 +69,36 @@ public class Booking {
     }
 
     // Получение времени начала и окончания занятия
-    public LocalDateTime getStartTime() {
+    public String getStartTime() {
         return classTime != null ? classTime.getStartTime() : null;
     }
 
-    public LocalDateTime getEndTime() {
+    public String getEndTime() {
         return classTime != null ? classTime.getEndTime() : null;
+    }
+
+    // Геттер для building
+    public Building getBuilding() {
+        return building;
+    }
+
+    // Сеттер для building
+    public void setBuilding(Building building) {
+        this.building = building;
+    }
+
+    @ManyToOne
+    @JoinColumn(name = "room_id") // Добавлено поле room
+    private Room room; // Связь с комнатой
+
+    // Другие поля...
+
+    // Геттеры и сеттеры
+    public Room getRoom() {
+        return room;
+    }
+
+    public void setRoom(Room room) {
+        this.room = room;
     }
 }

@@ -26,6 +26,10 @@
       color: red;
       text-align: center;
     }
+    .success {
+      color: green;
+      text-align: center;
+    }
     label {
       display: block;
       margin: 10px 0 5px;
@@ -54,6 +58,10 @@
 <body>
 <div class="login-container">
   <h2>Вход администратора</h2>
+
+  <!-- Сообщение об успешной регистрации -->
+  <div class="success" th:if="${success}" th:text="${success}"></div>
+
   <form action="#" th:action="@{/admin/login}" th:object="${user}" method="post">
     <label for="username">Имя пользователя:</label>
     <input type="text" id="username" th:field="*{username}" required />

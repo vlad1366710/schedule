@@ -66,7 +66,7 @@ public class BookingService {
 
 
     // Проверка доступности аудитории
-    public boolean isRoomAvailable(Room room, LocalDateTime startTime, LocalDateTime endTime)
+    public boolean isRoomAvailable(Room room, String startTime, String endTime)
     {
         return bookingRepository.findByRoomAndClassTime_StartTimeBetween(room, startTime, endTime).isEmpty();
     }

@@ -42,4 +42,12 @@ public class RoomService {
         }
         return false;
     }
+    public List<Room> getRoomsByBuildingId(Long buildingId) {
+        // Здесь должен быть код для получения аудиторий по идентификатору здания
+        return roomRepository.findByBuildingId(buildingId);
+    }
+
+    public List<Room> findByBuildingId(Long buildingId) {
+        return roomRepository.findByBuildingId(buildingId); // Метод для поиска аудиторий по идентификатору здания
+    }
 }

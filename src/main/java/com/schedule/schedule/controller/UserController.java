@@ -2,6 +2,7 @@ package com.schedule.schedule.controller;
 
 import com.schedule.schedule.model.Users;
 import com.schedule.schedule.service.UserService;
+import com.schedule.schedule.service.password.PasswordValidator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -13,6 +14,9 @@ public class UserController {
 
     @Autowired
     private UserService userService;
+
+    @Autowired
+    private PasswordValidator passwordValidator;
 
     @GetMapping("/admin/login")
     public String showLoginForm(Model model) {
@@ -33,10 +37,21 @@ public class UserController {
 
     @PostMapping("/register")
     public String register(@ModelAttribute Users user, RedirectAttributes redirectAttributes) {
+
+
+
         if (userService.findByUsername(user.getUsername()) != null) {
             redirectAttributes.addFlashAttribute("error", "Пользователь с таким именем уже существует!");
             return "redirect:/register"; // Перенаправление обратно на страницу регистрации
         }
+
+        // Валидация пароля
+        String password = user.getPassword();
+        if (!passwordValidator.isValid(password)) { // Использование PasswordValidator
+            redirectAttributes.addFlashAttribute("error", "Пароль должен содержать минимум 8 символов, включая заглавные и строчные буквы.");
+            return "redirect:/register"; // Перенаправление обратно на страницу регистрации
+        }
+
         userService.registerUser (user);
         redirectAttributes.addFlashAttribute("success", "Регистрация прошла успешно!");
         return "redirect:/login"; // Перенаправление на страницу входа после успешной регистрации
