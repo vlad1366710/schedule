@@ -1,5 +1,6 @@
 package com.schedule.schedule.service.password;
 
+import com.schedule.schedule.exception.registrationException.RegistrationException;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -7,8 +8,13 @@ public class PasswordValidator {
 
     public boolean isValid(String password) {
         if (password.length() < 8) {
-            return false;
+            throw new RegistrationException("Пароль должен содержать минимум 8 символов");
         }
+
+        if (!password.matches("[a-zA-Z]+")) {
+            throw new RegistrationException("Пароль должен содержать только английские буквы");
+        }
+
         boolean hasUpperCase = false;
         boolean hasLowerCase = false;
 
@@ -23,6 +29,6 @@ public class PasswordValidator {
                 return true;
             }
         }
-        return false; // Если не найдены оба типа букв
+        throw new RegistrationException("Пароль должен содержать заглавные и строчные символы");
     }
 }

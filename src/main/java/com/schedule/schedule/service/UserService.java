@@ -32,6 +32,10 @@ public class UserService {
         return userRepository.findByUsername(username);
     }
 
+    public Users findByEmail(String email) {
+        return userRepository.findByEmail(email);
+    }
+
     public Users authenticate(String username, String password) {
         Users user = userRepository.findByUsername(username);
         if (user != null && passwordEncoder.matches(password, user.getPassword())) { // Проверка пароля
