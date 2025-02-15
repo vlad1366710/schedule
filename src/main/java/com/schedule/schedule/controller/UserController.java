@@ -23,16 +23,16 @@ public class UserController {
     @Autowired
     private PasswordValidator passwordValidator;
 
-    @GetMapping("/admin/login")
+    @GetMapping("/login")
     public String showLoginForm(Model model) {
         model.addAttribute("user", new Users()); // Добавляем новый объект User в модель
         return "login"; // имя HTML-шаблона
     }
 
-    @PostMapping("/admin/login")
+    @PostMapping("/login")
     public String login(Users user, RedirectAttributes redirectAttributes) {
         Users authenticatedUser  = userService.authenticate(user.getUsername(), user.getPassword());
-        if (authenticatedUser  != null && "ADMIN".equals(authenticatedUser .getRole())) {
+        if (authenticatedUser  != null && authenticatedUser.isEnabled()) {
             logger.info("Пользователь {} успешно вошел в систему.", user.getUsername());
             return "index"; // перенаправление на страницу администрирования
         } else {

@@ -23,8 +23,8 @@ public class UserService {
 
     public void registerUser (Users user) {
         user.setPassword(passwordEncoder.encode(user.getPassword())); // Шифруем пароль
-        user.setEnabled(true); // Устанавливаем пользователя как активного
-        user.setRole(roleRepository.findByName(RoleConstants.ROLE_ADMIN));
+        user.setEnabled(false); // Устанавливаем пользователя как активного
+        user.setRole(roleRepository.findByName(RoleConstants.ROLE_NULL));
         userRepository.save(user); // Сохраняем пользователя в базе данных
     }
 
